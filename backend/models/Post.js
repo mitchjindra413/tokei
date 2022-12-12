@@ -8,6 +8,10 @@ const postSchema = Schema({
     },
     caption: {
         type: String
+    },
+    numberOfLikes: {
+        type: Number,
+        default: 0
     }
 }, {
     timestamps: true
