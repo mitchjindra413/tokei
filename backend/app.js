@@ -11,6 +11,8 @@ const csurf = require('csurf')
 
 //Models
 require('./models/User')
+require('./models/Post')
+require('./models/Comment')
 
 //Passport
 require('./config/passport')
@@ -19,8 +21,9 @@ const passport = require('passport')
 //Routers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api/users');
-const videosRouter = require('./routes/api/videos')
+const postsRouter = require('./routes/api/posts')
 const csrfRouter = require('./routes/api/csrf')
+const commentRouter = require('./routes/api/comments')
 
 var app = express();
 
@@ -49,8 +52,9 @@ app.use(
 //Routers
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/videos', videosRouter)
+app.use('/api/posts', postsRouter)
 app.use('/api/csrf', csrfRouter)
+app.use('./api/comments', commentRouter)
 
 //Error handeling
 app.use((req, res, next) => {
