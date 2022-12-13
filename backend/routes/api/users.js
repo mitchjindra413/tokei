@@ -48,7 +48,7 @@ router.post('/register', validateRegisterInput, async (req, res, next) => {
     bcrypt.hash(req.body.password, salt, async (err, hashedPassword) => {
       if(err) throw err
       try {
-        newUser.hashedPassword = hashedPassword
+        newUser.password = hashedPassword
         const user = await newUser.save()
         return res.json(await loginUser(user))
       }
