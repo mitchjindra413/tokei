@@ -2,16 +2,43 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = Schema({
-    author: {
-        type: Schema.Types.ObjectId,
-        ref: 'User'
-    },
     caption: {
         type: String
     },
-    numberOfLikes: {
-        type: Number,
-        default: 0
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    likes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Like"
+        }
+    ],
+    likes: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "User"
+        }
+    ],
+    comments: [
+        {
+            message: {
+                type: String,
+                required: true
+            },
+            author: {
+                type: Schema.Types.ObjectId,
+                ref: "users"
+            },
+            date: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
+    videoUrl: {
+        type: String
     }
 }, {
     timestamps: true

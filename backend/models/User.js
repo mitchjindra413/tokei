@@ -10,29 +10,34 @@ const userSchema = Schema({
         type: String,
         required: true
     },
-    hashedPassword: {
+    password: {
         type: String,
         required: true
     },
-    likedPosts: [
+    following: [
         {
             type: Schema.Types.ObjectId,
-            ref: "Post",
-        },
+            ref: "User"
+        }
     ],
-    usersFollowed: {
-        type: Map,
-        default: {}
+    posts: [
+        {
+            type: PostSchema
+        }
+    ],
+    likedPosts: [
+        {
+            type: PostSchema
+        }
+    ],
+    profilePhoto: {
+        type: String
     },
-    numberOfFollowers: {
-        type: Number,
-        default: 0
-    },
-    numberOfLikedComments: {
-        type: Number
+    profileBio: {
+        type: String
     }
 }, {
-    timestamps: true
+timestamps: true
 })
 
 
