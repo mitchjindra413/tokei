@@ -29,7 +29,7 @@ const postSchema = Schema({
             },
             author: {
                 type: Schema.Types.ObjectId,
-                ref: "users"
+                ref: "User"
             },
             date: {
                 type: Date,

@@ -22,12 +22,14 @@ const userSchema = Schema({
     ],
     posts: [
         {
-            type: PostSchema
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
         }
     ],
     likedPosts: [
         {
-            type: PostSchema
+            type: Schema.Types.ObjectId,
+            ref: 'Post'
         }
     ],
     profilePhoto: {
@@ -39,7 +41,5 @@ const userSchema = Schema({
 }, {
 timestamps: true
 })
-
-
 
 module.exports = mongoose.model('User', userSchema);

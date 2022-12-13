@@ -12,7 +12,7 @@ const csurf = require('csurf')
 //Models
 require('./models/User')
 require('./models/Post')
-require('./models/Comment')
+// require('./models/Comment')
 
 //Passport
 require('./config/passport')
@@ -54,7 +54,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter)
 app.use('/api/csrf', csrfRouter)
-app.use('./api/comments', commentRouter)
+// app.use('./api/comments', commentRouter)
 
 //Error handeling
 app.use((req, res, next) => {
