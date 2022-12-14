@@ -26,6 +26,12 @@ const s3Upload = async (userId, file) => {
     return await s3.upload(param).promise()
 };
 
+const s3Delete = async (path) => {
+    const s3 = new S3()
+
+    
+}
+
 const fileFilter = (req, file, cb) => {
     if (file.mimetype === 'video/mp4') {
         cb(null, true)
