@@ -48,7 +48,7 @@ router.post('/register', validateRegisterInput, async (req, res, next) => {
     bcrypt.hash(req.body.password, salt, async (err, hashedPassword) => {
       if(err) throw err
       try {
-        newUser.password = hashedPassword
+        newUser.hashedPassword = hashedPassword
         const user = await newUser.save()
         return res.json(await loginUser(user))
       }
@@ -60,18 +60,18 @@ router.post('/register', validateRegisterInput, async (req, res, next) => {
 })
 
 // Login user
-router.post('/login', validateLoginInput, async(req, res, next) => {
-  passport.authenticate('local', async function(err, user) {
-    if(err) return next(err)
-    if(!user) {
-      const err = new Error('Invalid credentials')
-      err.statusCode = 400
-      err.errors = { email: "Invalid credentials"}
-      return next(err)
+router.post('/login', validateLoginInput, async (req, res, next) => {
+  passport.authenticate('local', async function (err, user) {
+    if (err) return next(err);
+    if (!user) {
+      const err = new Error('Invalid credentials');
+      err.statusCode = 400;
+      err.errors = { email: "Invalid credentials" };
+      return next(err);
     }
-    return res.json(await loginUser(user))
-  })(req, res, next)
-})
+    return res.json(await loginUser(user));;
+  })(req, res, next);
+});
 
 // Get current logged in user
 router.get('/current', restoreUser, (req, res) => {
