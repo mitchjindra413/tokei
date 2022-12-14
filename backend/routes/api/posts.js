@@ -7,6 +7,40 @@ const Post = mongoose.model('Post')
 const {requireUser} = require('../../config/passport')
 const validatePostInput = require('../../validations/posts')
 
+//AWS upload
+const multer = require('multer')
+const { S3 } = require("aws-sdk")
+const { awsBucket } = require('../../config/keys')
+
+const storage = multer.memoryStorage()
+
+const s3Upload = async (userId, file) => {
+    const s3 = new S3();
+
+    const param = {
+        Bucket: awsBucket,
+        Key: `${userId}/${file.originalname}`,
+        Body: file.buffer,
+    };
+
+    return await s3.upload(param).promise()
+};
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype === 'video/mp4') {
+        cb(null, true)
+    } else {
+        cb(new Error('File must be MP4 format'), false)
+    }
+}
+
+const upload = multer({ storage, fileFilter, limits: { fileSize: 250000000, files: 1}})
+
+router.post('/upload', requireUser, upload.single('video'), async (req, res, next) => {
+    const result = await s3Upload(req.user._id, req.file)
+    res.json({status: 'success', result})
+})
+
 // Show all posts
 router.get('/', async (req, res, next) => {
     try{

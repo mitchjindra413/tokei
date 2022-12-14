@@ -3,6 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const debug = require('debug')
+const multer = require('multer')
 
 const cors = require('cors')
 const { isProduction } = require('./config/keys')
@@ -54,7 +55,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter)
 app.use('/api/csrf', csrfRouter)
-// app.use('./api/comments', commentRouter)
+app.use('./api/comments', commentRouter)
 
 //Error handeling
 app.use((req, res, next) => {
@@ -62,6 +63,28 @@ app.use((req, res, next) => {
     err.statusCode = 404
     next(err)
 })
+
+// app.use((error, req, res, next) => {
+//     if (error instanceof multer.MulterError) {
+//         if (error.code === "LIMIT_FILE_SIZE") {
+//             return res.status(400).json({
+//                 message: "file is too large",
+//             })
+//         }
+
+//         if (error.code === "LIMIT_FILE_COUNT") {
+//             return res.status(400).json({
+//                 message: "File limit reached",
+//             })
+//         }
+
+//         if (error.code === "LIMIT_UNEXPECTED_FILE") {
+//             return res.status(400).json({
+//                 message: "File must be an image",
+//             })
+//         }
+//     }
+// })
 
 const serverErrorLogger = debug('backend:error')
 
