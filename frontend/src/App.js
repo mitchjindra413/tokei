@@ -3,10 +3,16 @@ import { AuthRoute, ProtectedRoute } from './components/Routes/Routes';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 
+import './reset.css'
+
 import LoginForm from './components/SessionForms/LoginForm';
 import SignupForm from './components/SessionForms/SignupForm';
+import { MainPage } from './components/MainPage/MainPage';
 
 import { getCurrentUser } from './store/session';
+import { NavBar } from './components/NavBar/NavBar';
+
+
 
 function App() {
   const [loaded, setLoaded] = useState(false)
@@ -18,7 +24,8 @@ function App() {
 
   return loaded && (
     <Switch>
-      <AuthRoute exact path="/"  />
+      <NavBar></NavBar>
+      <AuthRoute exact path="/"  component={MainPage}/>
       <AuthRoute exact path="/login" component={LoginForm} />
       <AuthRoute exact path="/signup" component={SignupForm} />
     </Switch>

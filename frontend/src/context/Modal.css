@@ -1,0 +1,41 @@
+@keyframes growIn {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+#modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 31;  /*to be on top of unmatch-dropdown z-index of 30 (in Messaging.css) */
+}
+
+#modal-background {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#modal-content {
+    position: absolute;
+    background-color: white;
+    border-radius: 15px;
+
+    transition-timing-function: ease-in-out;
+    animation: growIn 0.3s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+}
