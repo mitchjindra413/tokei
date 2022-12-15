@@ -32,7 +32,7 @@
 #modal-content {
     position: absolute;
     background-color: white;
-    border-radius: 15px;
+    border-radius: 8px;
 
     transition-timing-function: ease-in-out;
     animation: growIn 0.3s;

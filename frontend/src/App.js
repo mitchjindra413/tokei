@@ -25,6 +25,7 @@ function App() {
   return loaded && (
     <Switch>
       <NavBar></NavBar>
+      <ProtectedRoute exact path='/upload' component={MainPage}/>
       <AuthRoute exact path="/"  component={MainPage}/>
       <AuthRoute exact path="/login" component={LoginForm} />
       <AuthRoute exact path="/signup" component={SignupForm} />
