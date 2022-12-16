@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom"
 import './NavBar.css'
 import { showLoginModal } from "../../store/ui"
 import { LoginFormModal } from "../SessionForms/LoginFormModal"
+import { SignupFormModal } from "../SessionForms/SignupFormModal"
 
 export const NavBar = () => {
     const currUser = useSelector(state => state.session.user)
@@ -52,6 +53,7 @@ export const NavBar = () => {
                 {whichButtons()}
             </div>
             {modal === 'login' &&(<LoginFormModal></LoginFormModal>)}
+            {modal === 'signup' && (<SignupFormModal></SignupFormModal>)}
         </nav>
     )
 }
