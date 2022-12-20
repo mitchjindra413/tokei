@@ -56,10 +56,15 @@ function LoginForm() {
                     
                     <input
                         type="submit"
-                        value="Log In"
+                        value="Log in"
                         disabled={!email || !password}
                         className="session-form-submit"
                     />
+
+                    <button
+                        type="button"
+                        className="session-form-submit"
+                    >Login with demo</button>
                 </div>
             </form>
             <div className='switch-session-form'>

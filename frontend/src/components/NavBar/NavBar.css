@@ -54,3 +54,8 @@ nav {
     font-size: 18px;
     margin-left: 25px;
 }
+
+.nav-buttons {
+    display: flex;
+    align-items: center;
+}

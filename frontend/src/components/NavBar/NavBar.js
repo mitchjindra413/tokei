@@ -2,8 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import './NavBar.css'
 import { showLoginModal } from "../../store/ui"
-import { LoginFormModal } from "../SessionForms/LoginFormModal"
-import { SignupFormModal } from "../SessionForms/SignupFormModal"
+import { SessionModal } from "../SessionForms/SessionModal"
+import { UserDrop } from "./UserDrop"
 
 export const NavBar = () => {
     const currUser = useSelector(state => state.session.user)
@@ -27,11 +27,18 @@ export const NavBar = () => {
         }
         return (
             <>
-                <div className="user-nav">
-                    <img src="https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1594805258216454~c5_720x720.jpeg?x-expires=1671238800&x-signature=Di%2BU96j9c5UyUrwJkxjCXWA%2FKPs%3D" alt="profile"></img>
-                </div>
+                <UserDrop></UserDrop>
             </>
         )
+    }
+
+    const modalSet = () => {
+        if (modal === 'login' || modal === 'signup'){
+            return (
+                <SessionModal></SessionModal>
+            )
+        }
+        return null
     }
 
     return (
@@ -52,8 +59,7 @@ export const NavBar = () => {
                 </button>
                 {whichButtons()}
             </div>
-            {modal === 'login' &&(<LoginFormModal></LoginFormModal>)}
-            {modal === 'signup' && (<SignupFormModal></SignupFormModal>)}
+            {modalSet()}
         </nav>
     )
 }

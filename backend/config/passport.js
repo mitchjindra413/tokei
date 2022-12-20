@@ -12,8 +12,13 @@ passport.use(new LocalStrategy({
     usernameField: 'email',
     passwordField: 'password',
     },
-    async function(email, password, done) {
-        const user = await User.findOne({ email })
+    async function(credential, password, done) {
+        let user = await User.findOne({ email: credential })
+        console.log('1', user)
+        if(!user) {
+            user = await User.findOne({ username: credential })
+            console.log('2', user)
+        }
         if(user){
             bcrypt.compare(password, user.hashedPassword, (err, isMatch) => {
                 if(err || !isMatch) done(null, false)

@@ -1,0 +1,33 @@
+.user-nav {
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+    margin-left: 20px;
+}
+
+.profile-dropdown {
+    position: absolute;
+    background-color: white;
+    z-index: 10;
+    box-shadow: 0 0 10px 0.5px #dddddd;
+    border-radius: 10px;
+    min-width: 200px;
+    min-height: 90px;
+    transform: translateX(-140px);
+}
+
+.profile-dropdown li {
+    margin: 5px 0px;
+    padding: 10px;
+    font-size: 16.5px;
+}
+
+
+.profile-dropdown li:hover {
+    background-color: #f1f0f0;
+}
+
+.li-icon {
+    padding-right: 7px;
+    font-size: 17px;
+}
