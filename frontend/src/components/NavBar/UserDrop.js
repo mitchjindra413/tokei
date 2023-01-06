@@ -43,8 +43,8 @@ export const UserDrop = () => {
                         <li><i className="fa-regular fa-user li-icon"></i>View profile</li>
                     </Link>
                     <hr style={{ color: '#ebebeb' }}></hr>
-                    <a href="https://www.linkedin.com/in/mitchell-jindra/" target="_blank" rel="noreferrer"><li><i class="fa-brands fa-linkedin-in li-icon"></i>LinkedIn</li></a>
-                    <a href="https://mitchjindra413.github.io/Portfolio-Website/" target="_blank" rel="noreferrer"><li><i class="fa-solid fa-globe li-icon"></i>Portfolio</li></a>
+                    <a href="https://www.linkedin.com/in/mitchell-jindra/" target="_blank" rel="noreferrer"><li><i className="fa-brands fa-linkedin-in li-icon"></i>LinkedIn</li></a>
+                    <a href="https://mitchjindra413.github.io/Portfolio-Website/" target="_blank" rel="noreferrer"><li><i className="fa-solid fa-globe li-icon"></i>Portfolio</li></a>
                     <a href="https://github.com/mitchjindra413/FullStack-Project" target="_blank" rel="noreferrer"><li> <i className="fa-brands fa-github li-icon"></i>Github</li></a>
                     <hr style={{ color: '#ebebeb' }}></hr>
                     <li onClick={() => dispatch(logout())} style={{ cursor: 'pointer' }}> <i className="fa-solid fa-arrow-right-from-bracket li-icon"></i>Log Out</li>

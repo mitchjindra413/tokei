@@ -7,6 +7,8 @@ const validatePostInput = [
         .withMessage('Caption must be less than 300 characters'),
     check('author')
         .exists({ checkFalsy: true }),
+    check('videoUrl')
+        .exists({ checkFalsy: true }),
     handleValidationErrors
 ];
 

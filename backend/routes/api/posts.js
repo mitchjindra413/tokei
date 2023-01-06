@@ -102,11 +102,12 @@ router.post('/', requireUser, validatePostInput, async (req, res, next) => {
     try {
         const newPost = new Post({
             caption: req.body.caption,
-            author: req.user._id
+            author: req.user._id,
+            videoUrl: req.body.videoUrl
         })
 
         let post = await newPost.save()
-        post = await post.populate('author', '_id, username')
+        post = await post.populate('author', '_id, username, profilePhoto')
         return res.json(post)
     } catch(err){
         next(err)
@@ -119,9 +120,7 @@ router.patch('/:postId', requireUser, validatePostInput, async(req, res, next) =
         const post = await Post.findById(req.params.postId)
 
         if (req.user._id.toString() === post.author.toString()) {
-            if(post.update(req.body)){
-                
-            }
+            await post.update(req.body)
 
             return res.json(post);
         } else {
@@ -157,5 +156,93 @@ router.delete('/:id', requireUser, async (req, res, next) => {
         next(err)
     }
 })
+
+// Routes for comments
+
+// fetches all comments by postId
+router.get("/:postId/comments", async (req, res, next) => {
+    try {
+        const post = await Post.findById(req.params.postId)
+        return res.json(post.comments)
+    } catch(err) {
+        return res.json([])
+    }
+})
+
+
+// route for creating a comment
+router.post("/:postId", requireUser, async (req, res, next) => {
+    try {
+        const post = await Post.findById(req.params.postId)
+        post.comments.push(req.body)
+        await post.save()
+        return res.json(post)
+    } catch (err) {
+        next(err)
+    }
+})
+
+
+// route for updating a comment
+// router.patch("/:postId/comments/:commentId", requireUser, async (req, res, next) => {
+//         Post.findByIdAndUpdate(req.params.postId, req.body, { new: true })
+//             .then(post => {
+//                 let updateCommentIdx = "";
+//                 post.comments.forEach((comment, idx) => {
+//                     if (comment.id === req.params.commentId) {
+//                         updateCommentIdx = idx
+//                     }
+//                 })
+
+//                 if (updateCommentIdx === "") {
+//                     return res.json({ nocommentfound: "No comment found with that ID" })
+//                 }
+
+//                 const { errors, isValid } = validateCommentInput(req.body);
+//                 if (!isValid) {
+//                     return res.status(400).json(errors)
+//                 }
+
+//                 post.comments[updateCommentIdx] = req.body
+//                 // 
+
+//                 post.save()
+
+//                 return res.json(post.comments[updateCommentIdx])
+
+//             })
+//             .catch(err => res.status(400).json({ nopostfound: "No post found by that ID" }))
+
+// })
+
+
+// route for deleting a comment
+// router.delete("/:postId/comments/:commentId",
+//     requireUser,
+//     (req, res) => {
+//         Post.findByIdAndUpdate(req.params.postId, req.body)
+//             .then(post => {
+//                 let deleteComment = "";
+
+//                 post.comments.forEach(comment => {
+//                     if (comment.id === req.params.commentId) {
+//                         deleteComment = comment
+//                     }
+//                 })
+
+//                 if (deleteComment === "") {
+//                     return res.json({ nocommentfound: "No comment found with that ID" })
+//                 }
+
+
+//                 deleteComment.remove()
+//                 post.save()
+//                     .then(post => res.json("Comment deleted"))
+//                     .catch(err => res.status(400).json({ nocommentfound: "No comment found with that ID" }))
+
+//             })
+//             .catch(err => res.status(400).json({ nopostfound: "No post found by that ID" }))
+
+//     })
 
 module.exports = router;

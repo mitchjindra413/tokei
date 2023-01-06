@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
 import { postsReducer } from "./posts";
 
-export const entitiesReducer = combineReducers({
+const entitiesReducer = combineReducers({
     posts: postsReducer
 })
+
+export default entitiesReducer

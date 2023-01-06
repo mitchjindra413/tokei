@@ -24,7 +24,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api/users');
 const postsRouter = require('./routes/api/posts')
 const csrfRouter = require('./routes/api/csrf')
-const commentRouter = require('./routes/api/comments')
+// const commentRouter = require('./routes/api/comments')
 
 var app = express();
 
@@ -55,7 +55,7 @@ app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/posts', postsRouter)
 app.use('/api/csrf', csrfRouter)
-app.use('./api/comments', commentRouter)
+// app.use('./api/comments', commentRouter)
 
 //Error handeling
 app.use((req, res, next) => {

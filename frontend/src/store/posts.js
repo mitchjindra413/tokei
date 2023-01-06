@@ -1,9 +1,10 @@
 import jwtFetch from "./jwt"
 
-const RECEIVE_POSTS = 'entities/RECEIVE_POSTS'
-const RECEIVE_POST = 'entities/RECEIVE_POST'
-const RECEIVE_POST_ERRORS = 'session/RECEIVE_POST_ERRORS'
-const CLEAR_POST_ERRORS = 'session/CLEAR_POST_ERRORS'
+const RECEIVE_POSTS = 'posts/RECEIVE_POSTS'
+const RECEIVE_POST = 'posts/RECEIVE_POST'
+const REMOVE_POST = 'posts/REMOVE_POST'
+const RECEIVE_POST_ERRORS = 'posts/RECEIVE_POST_ERRORS'
+const CLEAR_POST_ERRORS = 'posts/CLEAR_POST_ERRORS'
 
 const receivePosts = (posts) => ({
     type: RECEIVE_POSTS,
@@ -13,6 +14,11 @@ const receivePosts = (posts) => ({
 const receivePost = (post) => ({
     type: RECEIVE_POST,
     post
+})
+
+const removePost = (postId) => ({
+    type: REMOVE_POST,
+    postId
 })
 
 const receivePostErrors = errors => ({
@@ -27,7 +33,7 @@ export const clearPostErrors = errors => ({
 export const fetchPosts = (filters) => async dispatch => {
     try {
         const filterParams = new URLSearchParams(filters)
-        const res = jwtFetch('/api/posts/')
+        const res = await jwtFetch('/api/posts/')
         const posts = await res.json()
         dispatch(receivePosts(posts))
     } catch (err) {
@@ -40,7 +46,7 @@ export const fetchPosts = (filters) => async dispatch => {
 
 export const fetchPost = (postId) => async dispatch => {
     try {
-        const res = jwtFetch(`/api/posts/${postId}`)
+        const res = await jwtFetch(`/api/posts/${postId}`)
         const post = await res.json()
         dispatch(receivePost(post))
     } catch (err) {
@@ -53,9 +59,9 @@ export const fetchPost = (postId) => async dispatch => {
 
 export const deletePost = (postId) => async dispatch => {
     try {
-        const res = jwtFetch(`/api/posts/${postId}`)
+        const res = await jwtFetch(`/api/posts/${postId}`)
         const post = await res.json()
-        dispatch(receivePosts(post))
+        dispatch(removePost(post))
     } catch (err) {
         const res = await err.json()
         if (res.statusCode === 400) {
