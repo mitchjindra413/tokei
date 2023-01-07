@@ -43,6 +43,9 @@ small {
     color: #161823;
 }
 
+hr {
+    background-color: #ebebeb;
+}
 
 body {
     background-color: #ffffff;
