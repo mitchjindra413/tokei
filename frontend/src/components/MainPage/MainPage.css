@@ -1,11 +1,9 @@
 .main-page-container {
     display: flex;
-    justify-content: space-around;
-    padding-right: 50px;
+    justify-content: space-evenly;
 }
 
 .feed-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    height: calc(100vh - 61px);
+    overflow-y: scroll;
 }

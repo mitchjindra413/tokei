@@ -11,6 +11,7 @@ import { MainPage } from './components/MainPage/MainPage';
 
 import { getCurrentUser } from './store/session';
 import { NavBar } from './components/NavBar/NavBar';
+import { UploadForm } from './components/UploadForm/UploadForm';
 
 
 
@@ -26,6 +27,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
+        <Route path={'/upload'}><UploadForm></UploadForm></Route>
         <Route path={'/'}><MainPage/></Route>
       </Switch>
     </>

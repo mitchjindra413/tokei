@@ -7,7 +7,7 @@ export const Post = ({post}) => {
         <div className="post-container">
             <div className="post-user-info-container">
                 <div className="user-info">
-                    <img className="profile-pic" src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc56o27DhJ89wqj4Oyt9kdJ8eqtEmYJ6PTI4Mmc-3-Kw&s'></img>
+                    <img className="profile-pic" src='https://tokei-seed.s3.us-west-1.amazonaws.com/assets/blank.jpg'></img>
                     <div className="post-info">
                         <h3 className="profile-username">{post.author.username}</h3>
                         <p className="post-caption">{post.caption}</p>
@@ -21,10 +21,10 @@ export const Post = ({post}) => {
                 </video>
                 <div className="post-interaction-buttons">
                     
-                    <button><i class="fa-solid fa-heart fa-xl"></i></button>
+                    <button><i className="fa-solid fa-heart fa-xl"></i></button>
                     <p>{post.likes.length}</p>
                 
-                    <button><i class="fa-solid fa-comment-dots fa-xl"></i></button>
+                    <button><i className="fa-solid fa-comment-dots fa-xl"></i></button>
                     <p>{post.comments.length}</p>
                     
                 </div>

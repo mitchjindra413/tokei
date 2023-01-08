@@ -52,7 +52,7 @@ export const NavBar = () => {
             <div className="nav-buttons">
                 <button 
                     className="upload-button"
-                    onClick={currUser ? () => history.push('/uploads') : () => dispatch(showLoginModal())}
+                    onClick={currUser ? () => history.push('/upload') : () => dispatch(showLoginModal())}
                 >
                     <i className="fa-solid fa-plus"></i> Upload
                 </button>
