@@ -1,0 +1,29 @@
+.searchbar-container {
+    display: flex;
+    border-radius: 30px;
+    border: 1px solid #f5f5f4;
+    background-color: #f5f5f4;
+    align-items: center;
+}
+
+.search-input {
+    width: 290px;
+    caret-color: rgb(254, 44, 85);
+    font-weight: 300;
+    border-right: 1px solid grey;
+    margin-left: 16px;
+    height: 20px;
+}
+
+.search-submit {
+    width: 50px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0px;
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.search-submit:hover {
+    background-color: #ebebeb;
+}

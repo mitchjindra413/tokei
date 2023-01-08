@@ -1,7 +1,10 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { fetchPosts } from "../../store/posts"
+import { Sidebar } from "../Sidebar/Sidebar"
 import { Post } from "./Post"
+
+import './MainPage.css'
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -15,8 +18,11 @@ export const MainPage = () => {
     }, [])
 
     return (
-        <div className="Main-page-container">
-            {posts.map(post => <Post key={post._id} post={post}></Post>)}
+        <div className="main-page-container">
+            <Sidebar></Sidebar>
+            <div className="feed-container">
+                {posts.map(post => <Post key={post._id} post={post}></Post>)}
+            </div>
         </div>
     )
 }

@@ -4,6 +4,7 @@ import './NavBar.css'
 import { showLoginModal } from "../../store/ui"
 import { SessionModal } from "../SessionForms/SessionModal"
 import { UserDrop } from "./UserDrop"
+import { Searchbar } from "../Searchbar/Searchbar"
 
 export const NavBar = () => {
     const currUser = useSelector(state => state.session.user)
@@ -47,9 +48,7 @@ export const NavBar = () => {
                 <img className="logo-img" src='https://tokei-seed.s3.us-west-1.amazonaws.com/assets/toppng.com-tiktok-logo-transparent-984x1196.png' alt="logo"></img>
                 <h1>TikTokei</h1>
             </div>
-            <div>
-                Search bar
-            </div>
+            <Searchbar/>
             <div className="nav-buttons">
                 <button 
                     className="upload-button"

@@ -1,5 +1,5 @@
 .post-container {
-    max-width: 600px;
+    width: 50vw;
     border-bottom: 1px solid #ebebeb;
     padding: 15px 10px;
 }
@@ -70,7 +70,8 @@
 
 .post-interaction-buttons > p{
     padding-top: 5px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
+    font-size: 12px;
 }
 
 .post-interaction-buttons button {
