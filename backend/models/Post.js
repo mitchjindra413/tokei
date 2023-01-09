@@ -15,6 +15,15 @@ const postSchema = Schema({
             ref: "User"
         }
     ],
+    sound: {
+        type: String
+    },
+    topic: {
+        type: String
+    },
+    public: {
+        type: Boolean
+    },
     comments: [
         {
             message: {

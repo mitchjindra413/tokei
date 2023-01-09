@@ -3,8 +3,8 @@ const handleValidationErrors = require('./handleValidationErrors')
 
 const validatePostInput = [
     check('caption')
-        .isLength({ max: 300 })
-        .withMessage('Caption must be less than 300 characters'),
+        .isLength({ max: 150 })
+        .withMessage('Caption must be less than 150 characters'),
     check('author')
         .exists({ checkFalsy: true }),
     check('videoUrl')

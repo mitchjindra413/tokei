@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     padding: 10px 0;
+    min-height: calc(100vh - 82px);
 }
 
 .upload-form {
@@ -31,11 +32,13 @@
 
 .form-right-inputs {
     padding-left: 20px;
+    margin-top: 10px;
 }
 
 .label-div {
     display: flex;
     justify-content: space-between;
+    padding-top: 20px;
 }
 
 .label-div label {
@@ -65,4 +68,72 @@
 .caption-input-container button {
     padding-right: 10px;
 
+}
+
+.view-container {
+    margin-top: 10px;
+}
+
+.view-input-container {
+    border: 1px solid #E3E3E4;
+    border-radius: 2px;
+    width: 290px;
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 300;
+    margin-top: 5px;
+}
+
+.view-dropdown {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+    width: 310px;
+    padding: 8px 0px;
+    margin-top: 2px;
+    border-radius: 2px;
+    z-index: 1;
+    position: fixed;
+    background-color: white;
+}
+
+.view-dropdown p {
+    padding: 5px 10px;
+    cursor: pointer;
+    font-weight: 300;
+}
+
+.view-dropdown p:hover {
+    background-color: #F8F8F8;
+}
+
+.form-action-buttons {
+    margin-top: 40px;
+}
+
+.form-action-buttons button {
+    width: 165px;
+    height: 48px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.discard-post {
+    border: 1px solid #E3E3E4;
+    border-radius: 2px;
+}
+
+.discard-post:hover {
+    background-color: #F8F8F8;
+}
+
+.submit-post {
+    background-color: #FE2C55;
+    color: white;
+    border-radius: 2px;
+}
+
+.submit-post:hover {
+    background-color: rgba(224, 39, 75, 1);
 }

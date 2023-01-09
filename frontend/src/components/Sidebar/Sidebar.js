@@ -34,12 +34,13 @@ export const Sidebar = () => {
                     </div>
                 </div>
             </div>
+            {user && (
             <div className='spacing-div'>
                 <div className="feed-div">
                     <h4>Following Accounts</h4>
                     {user.following ? <p>following</p> : <p className='no-following'>Accounts you follow will appear here</p>}
                 </div>
-            </div>
+            </div>)}
             <div className='spacing-div'>
                 <div className="feed-div">
                     <h4>Discover</h4>
