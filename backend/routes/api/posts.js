@@ -10,7 +10,8 @@ const validatePostInput = require('../../validations/posts')
 //AWS upload
 const multer = require('multer')
 const { S3 } = require("aws-sdk")
-const { awsBucket } = require('../../config/keys')
+const { awsBucket } = require('../../config/keys');
+const uuid = require("uuid").v4
 
 const storage = multer.memoryStorage()
 
@@ -19,7 +20,7 @@ const s3Upload = async (userId, file) => {
 
     const param = {
         Bucket: awsBucket,
-        Key: `${userId}/${file.originalname}`,
+        Key: `${userId}/${uuid()}-${file.originalname}`,
         Body: file.buffer,
     };
 
@@ -50,9 +51,18 @@ router.post('/upload', requireUser, upload.single('video'), async (req, res, nex
 // Show all posts
 router.get('/', async (req, res, next) => {
     try{
-        const posts = await Post.find()
-            .populate("author", "_id, username")
-            .sort({ createdAt: -1})
+        let posts
+
+        if(req.query.topic != 'undefined'){
+            posts = await Post.find({topic: req.query.topic})
+                .populate("author", "_id, username")
+                .sort({ createdAt: -1 })
+        }
+        else {
+            posts = await Post.find()
+                .populate("author", "_id, username")
+                .sort({ createdAt: -1 })
+        }
         return res.json(posts)
     } catch(err) {
         return res.json([])
@@ -74,7 +84,7 @@ router.get('/user/:userId', async (req, res, next) => {
     try {
         const posts = await Post.find({author: user._id})
             .sort({createdAt: -1})
-            .populate("author", "_id, username")
+            .populate("author", "_id, username, profilePhoto")
         
         return res.json(posts)
     } catch(err) {
@@ -86,7 +96,7 @@ router.get('/user/:userId', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
     try{
         const post = await Post.findById(req.params.id)
-            .populate("author", "id, username")
+            .populate("author", "id, username, profilePhoto")
         
         return res.json(post)
     } catch(err) {

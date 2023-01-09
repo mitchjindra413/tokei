@@ -1,13 +1,17 @@
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom'
 import './Sidebar.css'
 
 export const Sidebar = () => {
     const user = useSelector(state => state.session.user)
+    const dispatch = useDispatch()
+    const history = useHistory()
+
     return (
         <div className="sidebar-container">
             <div className='spacing-div'>
                 <div className="feed-div">
-                    <div className="feed-selector">
+                    <div className="feed-selector" onClick={() => history.push('/')}>
                         <i className="fa-solid fa-house fa-xl"></i>
                         <h2>For You</h2>
                     </div>
@@ -20,15 +24,15 @@ export const Sidebar = () => {
             <div className='spacing-div'>
                 <div className="feed-div">
                     <h4>Popular topics</h4>
-                    <div className="feed-selector">
+                    <div className="feed-selector" onClick={() => history.push('/topics/comedy')}>
                         <i className="fa-solid fa-face-laugh-beam fa-xl"></i>
                         <h2>Comedy</h2>
                     </div>
-                    <div className="feed-selector">
+                    <div className="feed-selector" onClick={() => history.push('/topics/dance')}>
                         <i className="fa-solid fa-compact-disc fa-xl"></i>
                         <h2>Dance</h2>
                     </div>
-                    <div className="feed-selector">
+                    <div className="feed-selector" onClick={() => history.push('/topics/gaming')}>
                         <i className="fa-solid fa-gamepad fa-xl"></i>
                         <h2>Gaming</h2>
                     </div>

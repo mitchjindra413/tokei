@@ -40,6 +40,8 @@ export const UploadForm = () => {
         return () => document.removeEventListener('click', closeMenu)
     }, [showMenu, showTopics])
 
+    // to lower for topic
+
     return (
         <div className="upload-form-container">
             <div className="upload-form">

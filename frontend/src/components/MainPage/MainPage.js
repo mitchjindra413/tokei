@@ -5,6 +5,7 @@ import { Sidebar } from "../Sidebar/Sidebar"
 import { Post } from "./Post"
 
 import './MainPage.css'
+import { useParams } from "react-router-dom"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -13,9 +14,11 @@ export const MainPage = () => {
     }
     const posts = useSelector(getPosts)
 
+    const {topic} = useParams()
+
     useEffect(() => {
-        dispatch(fetchPosts())
-    }, [])
+        dispatch(fetchPosts({topic}))
+    }, [topic])
 
     return (
         <div className="main-page-container">

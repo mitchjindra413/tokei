@@ -27,6 +27,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
+        <Route path={'/topics/:topic'}><MainPage/></Route>
         <Route path={'/upload'}><UploadForm></UploadForm></Route>
         <Route path={'/'}><MainPage/></Route>
       </Switch>

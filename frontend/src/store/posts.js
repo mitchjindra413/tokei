@@ -33,7 +33,7 @@ export const clearPostErrors = errors => ({
 export const fetchPosts = (filters) => async dispatch => {
     try {
         const filterParams = new URLSearchParams(filters)
-        const res = await jwtFetch('/api/posts/')
+        const res = await jwtFetch(`/api/posts?${filterParams}`)
         const posts = await res.json()
         dispatch(receivePosts(posts))
     } catch (err) {
