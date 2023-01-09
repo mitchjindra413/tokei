@@ -4,7 +4,8 @@
 }
 
 .feed-container {
-    height: calc(100vh - 61px);
+    height: calc(100vh - 71px);
     overflow-y: scroll;
     width: 50vw;
+    padding-top: 10px;
 }

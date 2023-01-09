@@ -1,8 +1,9 @@
 
 .sidebar-container {
     width: 340px;
-    height: calc(100vh - 61px);
+    height: calc(100vh - 71px);
     overflow-y: scroll;
+    padding-top: 10px;
 }
 
 .feed-div h4 {
@@ -41,12 +42,10 @@
     padding-bottom: 10px;
 }
 
-.info-div {
-    padding: 10px 0px;
-}
-
 .bottom-text {
     padding-right: 10px;
+    padding-top: 10px;
+    padding-bottom: 2px;
     font-size: 14px;
     font-weight: 300;
     color: #919191;

@@ -1,8 +1,15 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import './Post.css'
+import { showLoginModal } from "../../store/ui"
 
 export const Post = ({post}) => {
-    // const currUser = useSelector(state => state.session.user)
+    const dispatch = useDispatch()
+    const currUser = useSelector(state => state.session.user)
+
+    const handelClick = () => {
+        if (!currUser) return dispatch(showLoginModal())
+    }
+
     return (
         <div className="post-container">
             <div className="post-user-info-container">
@@ -21,10 +28,10 @@ export const Post = ({post}) => {
                 </video>
                 <div className="post-interaction-buttons">
                     
-                    <button><i className="fa-solid fa-heart fa-xl"></i></button>
+                    <button onClick={handelClick}><i className="fa-solid fa-heart fa-xl"></i></button>
                     <p>{post.likes.length}</p>
                 
-                    <button><i className="fa-solid fa-comment-dots fa-xl"></i></button>
+                    <button onClick={handelClick}><i className="fa-solid fa-comment-dots fa-xl"></i></button>
                     <p>{post.comments.length}</p>
                     
                 </div>

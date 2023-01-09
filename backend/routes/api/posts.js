@@ -57,11 +57,13 @@ router.get('/', async (req, res, next) => {
             posts = await Post.find({topic: req.query.topic})
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
+                .limit(10)
         }
         else {
             posts = await Post.find()
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
+                .limit(10)
         }
         return res.json(posts)
     } catch(err) {

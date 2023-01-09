@@ -22,7 +22,8 @@ const postSchema = Schema({
         type: String
     },
     public: {
-        type: Boolean
+        type: Boolean,
+        default: true
     },
     comments: [
         {
@@ -41,7 +42,8 @@ const postSchema = Schema({
         }
     ],
     videoUrl: {
-        type: String
+        type: String,
+        required: true
     }
 }, {
     timestamps: true
