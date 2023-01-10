@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const postSchema = Schema({
     caption: {
-        type: String
+        type: String,
+        required: true
     },
     author: {
         type: Schema.Types.ObjectId,
@@ -21,7 +22,11 @@ const postSchema = Schema({
     topic: {
         type: String
     },
-    public: {
+    pub: {
+        type: Boolean,
+        default: true
+    },
+    allowComments: {
         type: Boolean,
         default: true
     },

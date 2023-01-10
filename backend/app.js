@@ -4,6 +4,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const debug = require('debug')
 const multer = require('multer')
+const bodyParser = require('body-parser')
 
 const cors = require('cors')
 const { isProduction } = require('./config/keys')
@@ -29,6 +30,8 @@ const csrfRouter = require('./routes/api/csrf')
 var app = express();
 
 app.use(logger('dev'));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

@@ -41,9 +41,9 @@ const fileFilter = (req, file, cb) => {
     }
 }
 
-const upload = multer({ storage, fileFilter, limits: { fileSize: 250000000, files: 1}})
+const upload = multer({ storage, fileFilter, limits: { fileSize: 5000000, files: 1}})
 
-router.post('/upload', requireUser, upload.single('video'), async (req, res, next) => {
+router.post('/uploadVideo', requireUser, upload.single('video'), async (req, res, next) => {
     const result = await s3Upload(req.user._id, req.file)
     res.json({status: 'success', result})
 })
@@ -115,7 +115,12 @@ router.post('/', requireUser, validatePostInput, async (req, res, next) => {
         const newPost = new Post({
             caption: req.body.caption,
             author: req.user._id,
-            videoUrl: req.body.videoUrl
+            videoUrl: req.body.videoUrl,
+            topic: req.body.topic,
+            pub: req.body.pub,
+            sound: req.body.sound,
+            pub: req.body.pub,
+            allowComments: req.body.allowComments,
         })
 
         let post = await newPost.save()

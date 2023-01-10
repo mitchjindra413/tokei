@@ -68,3 +68,9 @@
 .upload-criteria {
     padding: 20px 0;
 }
+
+.uploaded-video {
+    width: 260px;
+    height: 458px;
+    border-radius: 10px;
+}

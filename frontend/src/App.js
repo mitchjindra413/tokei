@@ -1,6 +1,6 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { AuthRoute, ProtectedRoute } from './components/Routes/Routes';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
 import './reset.css'
@@ -18,6 +18,7 @@ import { UploadForm } from './components/UploadForm/UploadForm';
 function App() {
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch()
+  const user = useSelector(state => state.session.user)
 
   useEffect(() => {
     dispatch(getCurrentUser()).then(() => setLoaded(true));
@@ -28,7 +29,9 @@ function App() {
       <NavBar></NavBar>
       <Switch>
         <Route path={'/topics/:topic'}><MainPage/></Route>
-        <Route path={'/upload'}><UploadForm></UploadForm></Route>
+        <Route path={'/upload'}>
+          {!user ? <Redirect to="/"></Redirect> : <UploadForm></UploadForm>}
+        </Route>
         <Route path={'/'}><MainPage/></Route>
       </Switch>
     </>

@@ -1,13 +1,20 @@
 import { useState, useEffect } from "react"
-import { useSelector } from "react-redux"
+
 import './UploadForm.css'
 import { BsHash } from "react-icons/bs"
 import { VscTriangleDown } from "react-icons/vsc"
 import { DragDropFile } from "./DragDropFile"
+import { useDispatch, useSelector } from "react-redux"
+import { useHistory } from "react-router-dom"
+import { createPost } from "../../store/posts"
 
 export const UploadForm = () => {
-    const userId = useSelector(state => state.session.user._id)
+    const dispatch = useDispatch()
+    const history = useHistory()
 
+    const file = useSelector(state => state.session.file)
+    const userId = useSelector(state => state.session.user._id)
+    
     const [caption, setCaption] = useState('')
     const [comments, toggleComments] = useState(false)
     const [sound, setSound] = useState('')
@@ -41,6 +48,25 @@ export const UploadForm = () => {
     }, [showMenu, showTopics])
 
     // to lower for topic
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let topic_form = topic
+        if (topic_form) {
+            topic_form = topic.toLowerCase()
+        }
+        const fields = {
+            author: userId,
+            caption,
+            sound,
+            topic: topic_form,
+            pub,
+            allowComments: comments,
+            videoUrl: file.Location
+        }
+
+        dispatch(createPost(fields)).then(history.push('/'))
+    }
 
     return (
         <div className="upload-form-container">
@@ -129,7 +155,10 @@ export const UploadForm = () => {
                             <button className="discard-post" type="button">
                                 Discard
                             </button>
-                            <button className="submit-post">
+                            <button className="submit-post" 
+                                onClick={handleSubmit}
+                                disabled={!caption || !userId || !file.Location || !topic || !sound}
+                                >
                                 Post
                             </button>
                         </div>

@@ -4,6 +4,9 @@
     height: calc(100vh - 71px);
     overflow-y: scroll;
     padding-top: 10px;
+    position: sticky;
+    top: 61px;
+    z-index: 100;
 }
 
 .feed-div h4 {

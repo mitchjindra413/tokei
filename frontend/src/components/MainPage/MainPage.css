@@ -4,8 +4,17 @@
 }
 
 .feed-container {
-    height: calc(100vh - 71px);
-    overflow-y: scroll;
     width: 50vw;
     padding-top: 10px;
+}
+
+.scroll-up {
+    color: #FE2C55;
+    position: fixed;
+    top: 92vh;
+    transform: translateX(55vw);
+}
+
+.scroll-up:hover {
+    color: rgba(224, 39, 75, 1);
 }

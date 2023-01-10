@@ -21,10 +21,12 @@ const removePost = (postId) => ({
     postId
 })
 
-const receivePostErrors = errors => ({
+export const receivePostErrors = errors => ({
     type: RECEIVE_POST_ERRORS,
     errors
 })
+
+
 
 export const clearPostErrors = errors => ({
     type: CLEAR_POST_ERRORS
@@ -55,6 +57,26 @@ export const fetchPost = (postId) => async dispatch => {
             return dispatch(receivePostErrors(res.errors))
         }
     }
+}
+
+export const createPost = (postData) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/posts/`, {
+            method: 'POST',
+            body: JSON.stringify(postData)
+        });
+        const post = await res.json();
+        dispatch(receivePost(post));
+    } catch (err) {
+        const res = await err.json();
+        if (res.statusCode === 400) {
+            return dispatch(receivePostErrors(res.errors));
+        }
+    }
+}
+
+export const updatePost = (postId) => async dispatch => {
+
 }
 
 export const deletePost = (postId) => async dispatch => {

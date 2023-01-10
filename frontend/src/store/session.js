@@ -1,9 +1,11 @@
 import jwtFetch from './jwt';
 import { hideModal } from './ui';
+import { receivePostErrors } from './posts';
 
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
 const CLEAR_SESSION_ERRORS = "session/CLEAR_SESSION_ERRORS";
+const RECEIVE_VIDEO = 'posts/RECEIVE_VIDEO'
 export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
 
 const receiveCurrentUser = currentUser => ({
@@ -14,6 +16,11 @@ const receiveCurrentUser = currentUser => ({
 const receiveErrors = errors => ({
     type: RECEIVE_SESSION_ERRORS,
     errors
+})
+
+const receiveVideo = (video) => ({
+    type: RECEIVE_VIDEO,
+    video
 })
 
 const logoutUser = () => ({
@@ -51,18 +58,40 @@ export const logout = () => dispatch => {
     dispatch(logoutUser())
 }
 
-const initialState = { user: undefined }
+export const uploadVideo = (file) => async dispatch => {
+    const videoData = new FormData();
+    videoData.set("video", file);
+
+    try {
+        const res = await jwtFetch(`/api/posts/uploadVideo`, {
+            method: 'POST',
+            body: videoData
+        })
+        const video = await res.json()
+        dispatch(receiveVideo(video))
+    } catch (err) {
+        const res = await err.json()
+        if (res.statusCode === 400) {
+            return dispatch(receivePostErrors(res.errors))
+        }
+    }
+}
+
+const initialState = { user: undefined, file: undefined }
 
 export const sessionReducer = (state = initialState, action) => {
     switch (action.type) {
         case RECEIVE_CURRENT_USER:
-            return { user: action.currentUser}
+            return { ...state, user: action.currentUser}
         case RECEIVE_USER_LOGOUT:
             return initialState
+        case RECEIVE_VIDEO:
+            return { ...state, file: action.video.result }
         default:
             return state
     }
 }
+
 
 const nullErrors = null
 export const sessionErrorsReducer = (state = nullErrors, action) => {

@@ -134,6 +134,15 @@
     border-radius: 2px;
 }
 
+.submit-post:disabled {
+    background-color: #ebebeb;
+}
+
+.submit-post:disabled:hover {
+    background-color: #ebebeb;
+    cursor: not-allowed;
+}
+
 .submit-post:hover {
     background-color: rgba(224, 39, 75, 1);
 }

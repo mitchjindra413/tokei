@@ -23,8 +23,9 @@ export const Post = ({post}) => {
                 <button className="follow-button">Follow</button>
             </div>
             <div className="post-video-container">
-                <video className="post-video" controls loop preload="auto">
+                <video className="post-video" controls loop preload="auto" style={{ zIndex: 1 }}>
                     <source src={post.videoUrl} type="video/mp4"></source>
+                    Your browser does not support the video tag.
                 </video>
                 <div className="post-interaction-buttons">
                     
