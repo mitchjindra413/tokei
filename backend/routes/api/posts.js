@@ -21,7 +21,7 @@ const s3Upload = async (userId, file) => {
     const param = {
         Bucket: awsBucket,
         Key: `${userId}/${uuid()}-${file.originalname}`,
-        Body: file.buffer,
+        Body: file.buffer
     };
 
     return await s3.upload(param).promise()

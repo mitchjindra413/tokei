@@ -5,7 +5,8 @@ import { receivePostErrors } from './posts';
 const RECEIVE_CURRENT_USER = "session/RECEIVE_CURRENT_USER";
 const RECEIVE_SESSION_ERRORS = "session/RECEIVE_SESSION_ERRORS";
 const CLEAR_SESSION_ERRORS = "session/CLEAR_SESSION_ERRORS";
-const RECEIVE_VIDEO = 'posts/RECEIVE_VIDEO'
+const RECEIVE_VIDEO = 'session/RECEIVE_VIDEO'
+const REMOVE_FILE = 'session/REMOVE_FILE'
 export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
 
 const receiveCurrentUser = currentUser => ({
@@ -21,6 +22,10 @@ const receiveErrors = errors => ({
 const receiveVideo = (video) => ({
     type: RECEIVE_VIDEO,
     video
+})
+
+export const removeFile = () => ({
+    type: REMOVE_FILE
 })
 
 const logoutUser = () => ({
@@ -87,6 +92,8 @@ export const sessionReducer = (state = initialState, action) => {
             return initialState
         case RECEIVE_VIDEO:
             return { ...state, file: action.video.result }
+        case REMOVE_FILE: 
+            return {...state, file: null}
         default:
             return state
     }

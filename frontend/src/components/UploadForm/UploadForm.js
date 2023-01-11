@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react"
-
 import './UploadForm.css'
 import { BsHash } from "react-icons/bs"
 import { VscTriangleDown } from "react-icons/vsc"
@@ -7,12 +6,16 @@ import { DragDropFile } from "./DragDropFile"
 import { useDispatch, useSelector } from "react-redux"
 import { useHistory } from "react-router-dom"
 import { createPost } from "../../store/posts"
+import { removeFile } from "../../store/session"
 
 export const UploadForm = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
     const file = useSelector(state => state.session.file)
+    // if(file) {
+    //     dispatch(removeFile())
+    // }
     const userId = useSelector(state => state.session.user._id)
     
     const [caption, setCaption] = useState('')
@@ -64,8 +67,14 @@ export const UploadForm = () => {
             allowComments: comments,
             videoUrl: file.Location
         }
-
+        dispatch(removeFile())
         dispatch(createPost(fields)).then(history.push('/'))
+    }
+
+    const handleDiscard = (e) => {
+        e.preventDefault()
+        dispatch(removeFile())
+        history.push('/')
     }
 
     return (
@@ -152,7 +161,7 @@ export const UploadForm = () => {
                             ) }
                         </div>
                         <div className="form-action-buttons">
-                            <button className="discard-post" type="button">
+                            <button className="discard-post" type="button" onClick={handleDiscard}>
                                 Discard
                             </button>
                             <button className="submit-post" 
