@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from "react-redux"
 import './Post.css'
 import { showLoginModal } from "../../store/ui"
+import { IoIosMusicalNotes } from "react-icons/io"
+import { followUser, unfollowUser } from "../../store/user"
 
 export const Post = ({post}) => {
     const dispatch = useDispatch()
@@ -8,6 +10,20 @@ export const Post = ({post}) => {
 
     const handelClick = () => {
         if (!currUser) return dispatch(showLoginModal())
+    }
+
+
+    const followUnfollow = () => {
+        if(!currUser) {
+            return <button className="follow-button" onClick={() => dispatch(showLoginModal())}>Follow</button>
+        }
+        if(currUser.following[post.author._id]) {
+            return  <button className="follow-button" onClick={() => dispatch(unfollowUser(post.author._id))}>Following</button>
+        }
+        if(currUser == post.author._id){
+            return 
+        }
+        return <button className="follow-button" onClick={() => dispatch(followUser(post.author._id))}>Follow</button>
     }
 
     return (
@@ -18,9 +34,13 @@ export const Post = ({post}) => {
                     <div className="post-info">
                         <h3 className="profile-username">{post.author.username}</h3>
                         <p className="post-caption">{post.caption}</p>
+                        <div className="sound-container"> 
+                            <IoIosMusicalNotes size={18}/>
+                            <p>{post.sound}</p>
+                        </div>
                     </div>
                 </div>
-                <button className="follow-button">Follow</button>
+                {followUnfollow()}
             </div>
             <div className="post-video-container">
                 <video className="post-video" controls loop preload="auto" style={{ zIndex: 1 }}>

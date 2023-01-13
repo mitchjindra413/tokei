@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs')
 const passport = require('passport')
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
-const { loginUser, restoreUser } = require('../../config/passport')
+const { loginUser, restoreUser, requireUser } = require('../../config/passport')
 const { isProduction } = require('../../config/keys')
 const validateRegisterInput = require('../../validations/register')
-const validateLoginInput = require('../../validations/login')
+const validateLoginInput = require('../../validations/login');
+const { request } = require('../../app');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -69,7 +70,7 @@ router.post('/login', validateLoginInput, async (req, res, next) => {
       err.errors = { email: "Invalid credentials" };
       return next(err);
     }
-    return res.json(await loginUser(user));;
+    return res.json(await loginUser(user));
   })(req, res, next);
 });
 
@@ -83,8 +84,51 @@ router.get('/current', restoreUser, (req, res) => {
   res.json({
     _id: req.user._id,
     username: req.user.username,
-    email: req.user.email
+    email: req.user.email,
+    following: req.user.following,
+    likedPosts: req.user.likedPosts,
+    profilePhoto: req.user.profilePhoto,
+    profileBio: req.user.profileBio
   })
+})
+
+router.patch('/follow', requireUser, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id)
+    user.following.set(req.body.userId, true)
+    await user.save()
+    return res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      following: user.following,
+      likedPosts: user.likedPosts,
+      profilePhoto: user.profilePhoto,
+      profileBio: user.profileBio
+    })
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.patch('/unfollow', requireUser, async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id)
+    const resUser = await User.findById(req)
+    user.following[req.body.userId].delete()
+    await user.save()
+    return res.json({
+      _id: user._id,
+      username: user.username,
+      email: user.email,
+      following: user.following,
+      likedPosts: user.likedPosts,
+      profilePhoto: user.profilePhoto,
+      profileBio: user.profileBio
+    })
+  } catch (err) {
+    next(err)
+  }
 })
 
 module.exports = router;

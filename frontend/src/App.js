@@ -5,8 +5,6 @@ import { useState, useEffect } from 'react';
 
 import './reset.css'
 
-import LoginForm from './components/SessionForms/LoginForm';
-import SignupForm from './components/SessionForms/SignupForm';
 import { MainPage } from './components/MainPage/MainPage';
 
 import { getCurrentUser } from './store/session';
@@ -28,6 +26,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
+        <Route path={'/music/:sound'}></Route>
         <Route path={'/topics/:topic'}><MainPage/></Route>
         <Route path={'/upload'}>
           {!user ? <Redirect to="/"></Redirect> : <UploadForm></UploadForm>}

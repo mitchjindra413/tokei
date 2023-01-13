@@ -9,12 +9,12 @@ const RECEIVE_VIDEO = 'session/RECEIVE_VIDEO'
 const REMOVE_FILE = 'session/REMOVE_FILE'
 export const RECEIVE_USER_LOGOUT = "session/RECEIVE_USER_LOGOUT";
 
-const receiveCurrentUser = currentUser => ({
+export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
     currentUser
 })
 
-const receiveErrors = errors => ({
+export const receiveErrors = errors => ({
     type: RECEIVE_SESSION_ERRORS,
     errors
 })

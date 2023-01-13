@@ -12,7 +12,7 @@
 
 .user-info {
     display: flex;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .post-info {
@@ -20,7 +20,7 @@
 }
 
 .post-info h3 {
-    font-weight: 600;
+    font-weight: 500;
     font-size: 18px;
 }
 
@@ -53,6 +53,7 @@
     font-weight: 300;
     font-size: 16px;
     padding-top: 5px;
+    text-overflow: ellipsis;
 }
 
 .post-video-container {
@@ -79,4 +80,17 @@
     height: 50px;
     background-color: #ebebeb;
     text-align: center;
+}
+
+.sound-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
+    cursor: pointer;
+    margin-left: -5px;
+}
+
+.sound-container:hover {
+    text-decoration: underline;
 }
