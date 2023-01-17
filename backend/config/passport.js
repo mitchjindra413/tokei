@@ -58,11 +58,24 @@ exports.restoreUser = (req, res, next) => {
 }
 
 exports.loginUser = async function (user) {
-    const userInfo = {
-        _id: user._id,
-        username: user.username,
-        email: user.email
+    const found = await User.findById(user._id)
+        .populate('following.$*', 'username profilePhoto')
+
+    userInfo = {
+        _id: found._id,
+        username: found.username,
+        email: found.email,
+        following: found.following,
+        likedPosts: found.likedPosts,
+        profilePhoto: found.profilePhoto,
+        profileBio: found.profileBio
     }
+
+    // const userInfo = {
+    //     _id: user._id,
+    //     username: user.username,
+    //     email: user.email
+    // }
     const token = await jwt.sign(
         userInfo, 
         secretOrKey, 

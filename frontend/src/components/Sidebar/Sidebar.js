@@ -1,12 +1,19 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
+import { UserSnipit } from '../UserSnipit/UserSnipit'
 import './Sidebar.css'
 
 export const Sidebar = () => {
     const user = useSelector(state => state.session.user)
-    const dispatch = useDispatch()
     const history = useHistory()
     const {topic} = useParams()
+
+    const getFollowing = (state) => {
+        return state.session.user && state.session.user.following ? Object.values(state.session.user.following) : []
+    }
+    const following = useSelector(getFollowing)
+
+    
 
     return (
         <div className="sidebar-container">
@@ -43,7 +50,7 @@ export const Sidebar = () => {
             <div className='spacing-div'>
                 <div className="feed-div">
                     <h4>Following Accounts</h4>
-                    {user.following ? <p>following</p> : <p className='no-following'>Accounts you follow will appear here</p>}
+                    {user.following ? following.map(user => <UserSnipit key={user._id} user={user} ></UserSnipit>) : <p className='no-following'>Accounts you follow will appear here</p>}
                 </div>
             </div>)}
             <div className='spacing-div'>

@@ -75,28 +75,32 @@ router.post('/login', validateLoginInput, async (req, res, next) => {
 });
 
 // Get current logged in user
-router.get('/current', restoreUser, (req, res) => {
+router.get('/current', restoreUser, async (req, res) => {
   if(!isProduction){
     const csrfToken = req.csrfToken()
     res.cookie("CSRF-TOKEN", csrfToken)
   }
   if(!req.user) return res.json(null)
-  res.json({
-    _id: req.user._id,
-    username: req.user.username,
-    email: req.user.email,
-    following: req.user.following,
-    likedPosts: req.user.likedPosts,
-    profilePhoto: req.user.profilePhoto,
-    profileBio: req.user.profileBio
+  const found = await User.findById(req.user._id)
+    .populate('following.$*', 'username profilePhoto')
+  
+    res.json({
+    _id: found._id,
+    username: found.username,
+    email: found.email,
+    following: found.following,
+    likedPosts: found.likedPosts,
+    profilePhoto: found.profilePhoto,
+    profileBio: found.profileBio
   })
 })
 
 router.patch('/follow', requireUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id)
-    user.following.set(req.body.userId, true)
+    user.following.set(`${req.body.userId}`, req.body.userId)
     await user.save()
+    await user.populate('following.$*', 'username profilePhoto')
     return res.json({
       _id: user._id,
       username: user.username,
@@ -114,9 +118,10 @@ router.patch('/follow', requireUser, async (req, res, next) => {
 router.patch('/unfollow', requireUser, async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id)
-    const resUser = await User.findById(req)
-    user.following[req.body.userId].delete()
+    // const resUser = await User.findById(req)
+    user.following.delete(`${req.body.userId}`)
     await user.save()
+    await user.populate('following.$*', 'username profilePhoto')
     return res.json({
       _id: user._id,
       username: user.username,

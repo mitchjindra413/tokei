@@ -16,6 +16,10 @@ const userSchema = Schema({
     },
     following: {
         type: Map,
+        of: {
+            type: 'ObjectId',
+            ref: 'User'
+        },
         default: {}
     },
     // following: [
@@ -30,12 +34,12 @@ const userSchema = Schema({
     //         ref: 'Post'
     //     }
     // ],
-    // likedPosts: {
-    //     type: Map,
-    //     of: Schema.Types.ObjectId,
-    //     ref: "Post",
-    //     default: {}
-    // },
+    likedPosts: {
+        type: Map,
+        of: Schema.Types.ObjectId,
+        ref: "Post",
+        default: {}
+    },
     // likedPosts: [
     //     {
     //         type: Schema.Types.ObjectId,
@@ -43,10 +47,12 @@ const userSchema = Schema({
     //     }
     // ],
     profilePhoto: {
-        type: String
+        type: String,
+        default: ''
     },
     profileBio: {
-        type: String
+        type: String,
+        default: ''
     }
 }, {
 timestamps: true

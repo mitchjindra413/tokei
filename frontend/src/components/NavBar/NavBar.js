@@ -20,9 +20,6 @@ export const NavBar = () => {
                     <button className="login-button" onClick={() => dispatch(showLoginModal())}>
                         Login
                     </button>
-                    {/* <button className="three-dots">
-                        <i className="fa-solid fa-ellipsis-vertical"></i>
-                    </button> */}
                 </>
             )
         }

@@ -20,9 +20,6 @@ export const Post = ({post}) => {
         if(currUser.following[post.author._id]) {
             return  <button className="follow-button" onClick={() => dispatch(unfollowUser(post.author._id))}>Following</button>
         }
-        if(currUser == post.author._id){
-            return 
-        }
         return <button className="follow-button" onClick={() => dispatch(followUser(post.author._id))}>Follow</button>
     }
 

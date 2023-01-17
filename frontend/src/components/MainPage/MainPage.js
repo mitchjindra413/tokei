@@ -14,7 +14,7 @@ export const MainPage = () => {
         return state.entities.posts ? Object.values(state.entities.posts) : []
     }
     const posts = useSelector(getPosts)
-    const [scroll, toggleScroll] = useState(false)
+    
     const {topic} = useParams()
 
     useEffect(() => {
