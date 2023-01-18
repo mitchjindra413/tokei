@@ -7,7 +7,8 @@ export const DragDropFile = () => {
     const [dragActive, setDragActive] = useState(false);
     const inputRef = useRef(null);
     const dispatch = useDispatch();
-    const [errors, setErrors] = useState([])
+    const [error, setError] = useState([])
+    const [loading, toggleLoading] = useState(false)
     const file = useSelector(state => state.session.file)
 
     // handle drag events
@@ -37,7 +38,7 @@ export const DragDropFile = () => {
         e.preventDefault();
         if (e.target.files && e.target.files[0]) {
             // handleFiles(e.target.files);
-            dispatch(uploadVideo(e.target.files[0]))
+            handleFile(e.target.files[0])
         }
     };
 
@@ -47,7 +48,22 @@ export const DragDropFile = () => {
     };
 
     const handleFile = (file) => {
-
+        setError('')
+        if (file.type != 'video/mp4') {
+            setError('File must be mp4')
+            document.getElementById("input-file-upload").value = "";
+            // e.dataTransfer.files = []
+            return
+        }
+        if (file.size > 5000000) {
+            setError('File must be less than 5mb')
+            document.getElementById("input-file-upload").value = "";
+            // e.dataTransfer.files = []
+            return
+        } else {
+            dispatch(uploadVideo(file))
+            toggleLoading(true)
+        }
     }
 
     if (file) {
@@ -61,9 +77,17 @@ export const DragDropFile = () => {
         )
     }
 
+    if (loading) {
+        return (
+            <div id="label-file-upload">
+                <img src="https://tokei-seed.s3.us-west-1.amazonaws.com/assets/loader.gif" style={{width: '60px', height: '60px'}}></img>
+            </div>
+        )
+    }
+
     return (
         <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
-            <input ref={inputRef} type="file" id="input-file-upload" multiple={false} onChange={handleChange} />
+            <input ref={inputRef} type="file" id="input-file-upload" multiple={false} accept={'video/mp4'} onChange={handleChange} />
             <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : ""}>
                 <div className="file-upload-text">
                     <i className="fa-solid fa-cloud-arrow-up fa-2x"></i>
@@ -74,6 +98,9 @@ export const DragDropFile = () => {
                         <p>Less than 5mb</p>
                     </div>
                     <button className="upload-button-form" onClick={onButtonClick}>Select file</button>
+                    <div className="errors-div">
+                        <p style={{color: 'red', marginTop: '20px', fontSize: '18px'}}>{error}</p>
+                    </div>
                 </div>
             </label>
             {dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div>}
