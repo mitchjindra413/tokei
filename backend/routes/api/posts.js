@@ -21,7 +21,10 @@ const s3Upload = async (userId, file) => {
     const param = {
         Bucket: awsBucket,
         Key: `${userId}/${uuid()}-${file.originalname}`,
-        Body: file.buffer
+        Body: file.buffer,
+        Metadata: {
+            'Content-Type': file.mimetype,
+        },
     };
 
     return await s3.upload(param).promise()
@@ -50,17 +53,18 @@ router.post('/uploadVideo', requireUser, upload.single('video'), async (req, res
 
 // Show all posts
 router.get('/', async (req, res, next) => {
+    console.log(req.query)
     try{
         let posts
 
         if(req.query.topic != 'undefined'){
-            posts = await Post.find({topic: req.query.topic})
+            posts = await Post.find({ topic: req.query.topic, author: { $ne: req.query.userId }})
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
                 .limit(10)
         }
         else {
-            posts = await Post.find()
+            posts = await Post.find({author: {$ne: req.query.userId}})
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
                 .limit(10)

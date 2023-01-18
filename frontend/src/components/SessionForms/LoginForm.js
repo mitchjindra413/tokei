@@ -43,6 +43,7 @@ function LoginForm() {
                         onChange={update('email')}
                         placeholder="Email or username"
                         className='session-form-input'
+                        style={errors?.email ? {border: 'red 1px solid'} : {}}
                     />
                     <div className="errors">{errors?.email}</div>
                     
@@ -51,6 +52,7 @@ function LoginForm() {
                         onChange={update('password')}
                         placeholder="Password"
                         className='session-form-input'
+                        style={errors?.password ? { border: 'red 1px solid' } : {}}
                     />
                     <div className="errors">{errors?.password}</div>
                     

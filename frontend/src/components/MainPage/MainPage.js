@@ -14,11 +14,16 @@ export const MainPage = () => {
         return state.entities.posts ? Object.values(state.entities.posts) : []
     }
     const posts = useSelector(getPosts)
-    
+    const user = useSelector(state => state.session.user)
     const {topic} = useParams()
 
     useEffect(() => {
-        dispatch(fetchPosts({topic}))
+        if(user){
+            const userId = user._id
+            dispatch(fetchPosts({topic, userId}))
+        } else {
+            dispatch(fetchPosts({ topic }))
+        }
     }, [topic])
 
     return (

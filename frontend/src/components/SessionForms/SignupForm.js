@@ -41,31 +41,34 @@ function SignupForm() {
                     <h2>Sign up</h2>
                 </div>
                 <div className='input-container'>
-                    <div className="errors">{errors?.email}</div>
                     <h3>Email</h3>
                     <input type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
                         className='session-form-input'
+                        style={errors?.email ? { border: 'red 1px solid' } : {}}
                     />
+                    <div className="errors">{errors?.email}</div>
                     
+                    <input type="text"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        placeholder="Username"
+                        className='session-form-input'
+                        style={errors?.username ? { border: 'red 1px solid' } : {}}
+                    />
                     <div className="errors">{errors?.username}</div>
                     
-                        <input type="text"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            placeholder="Username"
-                            className='session-form-input'
-                        />
+                    <input type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        className='session-form-input'
+                        style={errors?.password ? { border: 'red 1px solid' } : {}}
+                    />
                     <div className="errors">{errors?.password}</div>
-                    
-                        <input type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            placeholder="Password"
-                            className='session-form-input'
-                        />
+
                     <div className="needed">
                         <h4>Your password must have:</h4>
                         <p

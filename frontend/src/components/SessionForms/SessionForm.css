@@ -102,3 +102,8 @@
     font-weight: 300;
     padding-top: 5px;
 }
+
+.errors {
+    font-size: 15px;
+    padding-left: 10px;
+}
