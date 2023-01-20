@@ -6,6 +6,7 @@ import { Post } from "./Post"
 import { BsFillArrowUpCircleFill } from 'react-icons/bs'
 import './MainPage.css'
 import { useParams } from "react-router-dom"
+import { PostViewModal } from "../PostView/PostViewModal"
 
 export const MainPage = () => {
     const dispatch = useDispatch()
@@ -17,6 +18,8 @@ export const MainPage = () => {
     const user = useSelector(state => state.session.user)
     const {topic} = useParams()
 
+    const modal = useSelector(state => state.ui.postModal)
+
     useEffect(() => {
         if(user){
             const userId = user._id
@@ -24,15 +27,18 @@ export const MainPage = () => {
         } else {
             dispatch(fetchPosts({ topic }))
         }
-    }, [topic])
+    }, [topic, user])
 
     return (
-        <div className="main-page-container">
-            <Sidebar></Sidebar>
-            <div className="feed-container" >
-                <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="scroll-up"><BsFillArrowUpCircleFill size={30}/></button>
-                {posts.map(post => <Post key={post._id} post={post}></Post>)}
+        <>
+            {modal && <PostViewModal></PostViewModal>}
+            <div className="main-page-container">
+                <Sidebar></Sidebar>
+                <div className="feed-container" >
+                    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="scroll-up"><BsFillArrowUpCircleFill size={30}/></button>
+                    {posts.map(post => <Post key={post._id} post={post}></Post>)}
+                </div>
             </div>
-        </div>
+        </>
     )
 }

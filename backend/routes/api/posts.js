@@ -22,9 +22,8 @@ const s3Upload = async (userId, file) => {
         Bucket: awsBucket,
         Key: `${userId}/${uuid()}-${file.originalname}`,
         Body: file.buffer,
-        Metadata: {
-            'Content-Type': file.mimetype,
-        },
+        ContentType: file.mimetype,
+        
     };
 
     return await s3.upload(param).promise()
@@ -56,20 +55,24 @@ router.get('/', async (req, res, next) => {
     console.log(req.query)
     try{
         let posts
-
         if(req.query.topic != 'undefined'){
-            posts = await Post.find({ topic: req.query.topic, author: { $ne: req.query.userId }})
+            posts = await Post.find({ topic: req.query.topic, author: { $ne: req.query.userId }, pub: true })
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
-                .limit(10)
+                // .limit(10)
         }
         else {
-            posts = await Post.find({author: {$ne: req.query.userId}})
+            posts = await Post.find({ author: { $ne: req.query.userId }, pub: true})
                 .populate("author", "_id, username")
                 .sort({ createdAt: -1 })
-                .limit(10)
+                // .limit(10)
         }
-        return res.json(posts)
+        postsObj = {}
+        for (const post of posts) {
+            postsObj[post._id] = post
+        }
+
+        return res.json(postsObj)
     } catch(err) {
         return res.json([])
     }
@@ -92,7 +95,11 @@ router.get('/user/:userId', async (req, res, next) => {
             .sort({createdAt: -1})
             .populate("author", "_id, username, profilePhoto")
         
-        return res.json(posts)
+        postsObj = {}
+        for (const post of posts) {
+            postsObj[post._id] = post
+        }
+        return res.json(postsObj)
     } catch(err) {
         return res.json([])
     }

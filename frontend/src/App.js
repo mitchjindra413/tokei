@@ -10,7 +10,7 @@ import { MainPage } from './components/MainPage/MainPage';
 import { getCurrentUser } from './store/session';
 import { NavBar } from './components/NavBar/NavBar';
 import { UploadForm } from './components/UploadForm/UploadForm';
-
+import { PostView } from './components/PostView/PostView';
 
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
+        <Route path={'/post/:postId'}><PostView></PostView></Route>
         <Route path={'/music/:sound'}></Route>
         <Route path={'/topics/:topic'}><MainPage/></Route>
         <Route path={'/upload'}>
