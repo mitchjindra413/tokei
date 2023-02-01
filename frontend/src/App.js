@@ -26,7 +26,7 @@ function App() {
     <>
       <NavBar></NavBar>
       <Switch>
-        <Route path={'/post/:postId'}><PostView></PostView></Route>
+        {/* <Route path={'/post/:postId'}><PostView></PostView></Route> */}
         <Route path={'/music/:sound'}></Route>
         <Route path={'/topics/:topic'}><MainPage/></Route>
         <Route path={'/upload'}>

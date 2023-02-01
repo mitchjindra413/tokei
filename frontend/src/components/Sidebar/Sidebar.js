@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams } from 'react-router-dom'
-import { UserSnipit } from '../UserSnipit/UserSnipit'
+import { UserSnipit} from './UserSnipit/UserSnipit'
 import './Sidebar.css'
 
 export const Sidebar = () => {
