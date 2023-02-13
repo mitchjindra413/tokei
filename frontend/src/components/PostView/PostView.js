@@ -1,20 +1,13 @@
 import { useDispatch, useSelector } from "react-redux"
-import { UserSnipit } from "../Sidebar/UserSnipit/UserSnipit"
 import { hideModal } from "../../store/ui"
-import { unfollowUser, followUser } from "../../store/user"
+import { PostInfo } from "./PostInfo"
 import './PostView.css'
 
 export const PostView = ({postId}) => {
-    const currUser = useSelector(state => state.session.user)
+    
     const post = useSelector(state => state.entities.posts[postId])
     const dispatch = useDispatch()
 
-    const followUnfollow = () => {
-        if (currUser.following[post.author._id]) {
-            return <button className="follow-button" onClick={() => dispatch(unfollowUser(post.author._id))}>Following</button>
-        }
-        return <button className="follow-button" onClick={() => dispatch(followUser(post.author._id))}>Follow</button>
-    }
 
     return (
         <div className="postview-container">
@@ -26,8 +19,7 @@ export const PostView = ({postId}) => {
                 </video>
             </div>
             <div className="right-postview">
-                <UserSnipit user={post.author}/>
-                {followUnfollow()}
+                <PostInfo postId={postId}></PostInfo>
             </div>
         </div>
     )

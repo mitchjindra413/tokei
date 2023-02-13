@@ -6,6 +6,7 @@ import { PostView } from "./PostView"
 export const PostViewModal = () => {
     const dispatch = useDispatch()
     const modal = useSelector(state => state.ui.postModal)
+    
 
     return (
         <>

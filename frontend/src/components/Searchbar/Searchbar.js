@@ -10,7 +10,7 @@ export const Searchbar = () => {
             <div className="input-container">
                 <input
                     className="search-input"
-                    placeholder="Search accounts and videos"
+                    placeholder="Search accounts"
                     value={search}
                     onChange={e => setSearch(e.target.value)}
                 ></input>
