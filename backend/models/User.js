@@ -48,7 +48,7 @@ const userSchema = Schema({
     // ],
     profilePhoto: {
         type: String,
-        default: ''
+        default: 'https://tokei-seed.s3.us-west-1.amazonaws.com/assets/blank.jpg'
     },
     profileBio: {
         type: String,

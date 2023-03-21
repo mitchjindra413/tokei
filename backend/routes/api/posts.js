@@ -52,23 +52,22 @@ router.post('/uploadVideo', requireUser, upload.single('video'), async (req, res
 
 // Show all posts
 router.get('/', async (req, res, next) => {
-    console.log(req.query)
     try{
         let posts
         if(req.query.topic != 'undefined'){
             posts = await Post.find({ topic: req.query.topic, author: { $ne: req.query.userId }, pub: true })
-                .populate("author", "_id, username")
+                .populate("author", ["username", "profilePhoto"])
                 .sort({ createdAt: -1 })
                 // .limit(10)
         }
         else {
             posts = await Post.find({ author: { $ne: req.query.userId }, pub: true})
-                .populate("author", "_id, username")
+                .populate("author", ["username", "profilePhoto"])
                 .sort({ createdAt: -1 })
                 // .limit(10)
         }
         postsObj = {}
-        for (const post of posts) {
+        for (let post of posts) {
             postsObj[post._id] = post
         }
 

@@ -2,16 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const commentSchema = new Schema({
-    body: { type: String, required: true },
-    doc: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        refPath: 'docModel'
-    },
-    docModel: {
+    message: {
         type: String,
-        required: true,
-        enum: ['Post', 'Comment']
+        required: true
+    },
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: "User"
+    },
+    post: {
+        type: Schema.Types.ObjectId,
+        ref: "Post"
     }
 }, {
     timestamps: true

@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux"
 import { unfollowUser, followUser } from "../../store/user"
 import { IoIosMusicalNotes } from "react-icons/io"
+import "./PostInfo.css"
 
 export const PostInfo = ({postId}) => {
     const post = useSelector(state => state.entities.posts[postId])
@@ -19,11 +20,10 @@ export const PostInfo = ({postId}) => {
     }
 
     return (
-        <div>
-            <div className="">
-                <div className="">
-                    <img className="profile-pic" src=''></img>
-                    
+        <div className="post-info-view">
+            <div className="info-top">
+                <div className="user-profile">
+                    <img className="profile-pic-info" src={post.author.profilePhoto}></img>            
                     <h3 className="profile-username">{post.author.username}</h3>
                 </div>
                 {followUnfollow()}
@@ -33,13 +33,18 @@ export const PostInfo = ({postId}) => {
                 <IoIosMusicalNotes size={18} />
                 <p>{post.sound}</p>
             </div>
-            <div className="post-interaction-buttons">
-
-                <button onClick={handelClick}><i className="fa-solid fa-heart fa-xl"></i></button>
-                <p>{post.likes.length}</p>
-
-                <button><i className="fa-solid fa-comment-dots fa-xl"></i></button>
-                {/* <p>{post.comments.length}</p> */}
+            <div className="likes-comments-view-container">
+                <div className="likes-comments-view" onClick={handelClick}>
+                    <i className="fa-solid fa-heart fa-l"></i>
+                    <p>{post.likes.length}</p>
+                </div>
+                <div className="likes-comments-view">
+                    <i className="fa-solid fa-comment-dots fa-l"></i>
+                    <p>0</p>
+                </div>
+            </div>
+            <div className="copy-container">
+                
             </div>
         </div>
     )

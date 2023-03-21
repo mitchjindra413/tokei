@@ -97,7 +97,7 @@ export const UploadForm = () => {
                             <div className="caption-input-container">
                                 <input type='text'
                                     value={caption}
-                                    onChange={e => setCaption(e.target.value)}
+                                    onChange={e => {debugger; setCaption(e.target.value)}}
                                     maxLength="150"
                                     id="caption-input"
                                 ></input>
@@ -113,7 +113,7 @@ export const UploadForm = () => {
                             <div className="caption-input-container">
                                 <input type='text'
                                     value={sound}
-                                    onChange={e => setSound(e.target.value)}
+                                    onChange={(e) => setSound(e.target.value)}
                                     maxLength="150"
                                     id="sound-input"
                                 ></input>
@@ -166,7 +166,7 @@ export const UploadForm = () => {
                             </button>
                             <button className="submit-post" 
                                 onClick={handleSubmit}
-                                disabled={!caption || !userId || !file.Location || !topic || !sound}
+                                disabled={!caption || !userId || !file || !file.Location || !topic || !sound}
                                 >
                                 Post
                             </button>

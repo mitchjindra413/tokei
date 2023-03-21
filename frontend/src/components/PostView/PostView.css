@@ -5,6 +5,7 @@
 }
 
 .left-postview {
+    min-width: 600px;
     width: calc(100vw - 544px);
     display: flex;
     justify-content: center;

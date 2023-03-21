@@ -8,7 +8,7 @@ const validateCommentInput = [
         .withMessage('Message must be less than 200 characters and greater than 3'),
     check('author')
         .exists({ checkFalsy: true }),
-    check('postId')
+    check('post')
         .exists({ checkFalsy: true}),
     handleValidationErrors
 ];

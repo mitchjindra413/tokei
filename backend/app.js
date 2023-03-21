@@ -3,7 +3,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const debug = require('debug')
-const multer = require('multer')
+// const multer = require('multer')
 const bodyParser = require('body-parser')
 
 const cors = require('cors')
@@ -14,7 +14,7 @@ const csurf = require('csurf')
 //Models
 require('./models/User')
 require('./models/Post')
-// require('./models/Comment')
+require('./models/Comment')
 
 //Passport
 require('./config/passport')
@@ -23,9 +23,10 @@ const passport = require('passport')
 //Routers
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/api/users');
-const postsRouter = require('./routes/api/posts')
-const csrfRouter = require('./routes/api/csrf')
-// const commentRouter = require('./routes/api/comments')
+const postsRouter = require('./routes/api/posts');
+const csrfRouter = require('./routes/api/csrf');
+const searchRouter = require('./routes/api/search');
+// const commentsRouter = require('./routes/api/comments')
 
 var app = express();
 
@@ -56,9 +57,10 @@ app.use(
 //Routers
 app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
-app.use('/api/posts', postsRouter)
-app.use('/api/csrf', csrfRouter)
-// app.use('./api/comments', commentRouter)
+app.use('/api/posts', postsRouter);
+app.use('/api/csrf', csrfRouter);
+// app.use('/api/comments', commentsRouter)
+app.use('/api/search', searchRouter)
 
 //Error handeling
 app.use((req, res, next) => {

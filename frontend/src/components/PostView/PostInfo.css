@@ -1,0 +1,55 @@
+.post-info-view {
+    padding: 40px 30px 30px 30px;
+}
+
+.info-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+}
+
+.profile-pic-info {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.profile-username {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.user-profile {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+}
+
+.likes-comments-view-container {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    justify-content: space-between;
+    padding: 30px 0 10px 0;
+}
+
+.likes-comments-view{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.likes-comments-view i {
+    padding: 8px;
+    background-color: #ebebeb;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.copy-container {
+    height: 30px;
+    background-color: #ebebeb;
+    border-radius: 10px;
+}
